@@ -51,19 +51,41 @@
         mysqli_free_result($result);
 
         // close connection
-        mysqli_close($connection);
+        mysqli_close($connect);
     ?>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <div class="container-fluid main-title">
+        <div class="row">
+            <div class="col">
+                <h1>Movie List</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid main-headers">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-3">Title</div>
+            <div class="col-2">Release Date</div>
+            <div class="col-2">Director</div>
+            <div class="col-2">Ratings</div>                                                
+            <div class="col-2">Rotten Tomatoes</div>
+        </div>
+    </div>
+
 
     <?php foreach($movies as $row) { ?>
-        <div><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['movie_id']; ?></a></div>
-        <div><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['title']; ?></a></div>
-        <div><?php echo $row['release_date']; ?></div>
-        <div><a href="person.php?person=<?php echo $row['person_id']; ?>"><?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?></a></div>
-        <div><?php echo $row['rating']; ?></div>
-        <div><?php echo $row['rotten_rating']; ?></div>
+    <div class="container-fluid list">
+        <div class="row">
+        <div class="col-1 text-center"><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['movie_id']; ?></a></div>
+        <div class="col-3"><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['title']; ?></a></div>
+        <div class="col-2"><?php echo $row['release_date']; ?></div>
+        <div class="col-2"><a href="person.php?person=<?php echo $row['person_id']; ?>"><?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?></a></div>
+        <div class="col-2"><?php echo $row['rating']; ?></div>
+        <div class="col-2"><?php echo $row['rotten_rating']; ?></div>
+        </div>
+    </div>    
         <?php
         }
 ?>
