@@ -42,7 +42,7 @@ $movieBio = mysqli_fetch_all($result, MYSQLI_ASSOC); // you will rename your var
 
 // NOTE - all of the above is one query
 
-// get cast data
+// get cast data that will need to be added next
 
 
 
