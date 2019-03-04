@@ -33,8 +33,6 @@ $person = mysqli_fetch_all($result, MYSQLI_ASSOC); // you will rename your varia
 
 // get cast data that will need to be added next
 
-//to your movies.model.php
-
 $strSQL = "SELECT
 m.movie_id
 , m.title
@@ -58,6 +56,34 @@ ORDER BY c.movie_id
 $result = mysqli_query($connect, $strSQL);
 // Fetch Data
 $role = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
+// get cast data that will need to be added next
+
+$strSQL = "SELECT
+m.movie_id
+, m.title
+
+FROM
+cis282movies.movies m
+, cis282movies.persons p
+
+
+WHERE
+m.director_id = p.person_id
+AND p.person_id = $personId
+
+ORDER BY m.movie_id
+";
+
+// Get Result
+$result = mysqli_query($connect, $strSQL);
+// Fetch Data
+$director = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
+
+
 
 // free result
 mysqli_free_result($result);

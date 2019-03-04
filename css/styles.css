@@ -1,4 +1,4 @@
-/*:root {
+:root {
     --lg-spacing: 3%;
     --md-spacing: 2%;
     --sm-spacing: 1%;
@@ -35,4 +35,3 @@
 .cast {
     margin-bottom: var(--sm-spacing);
 }
-*/

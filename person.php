@@ -99,6 +99,26 @@
         }
         ?>
 
+        <?Php // var_dump($director); ?>
+    <?php foreach($director as $row) { ?>
+            <div class="container-fluid">
+                <div class="row cast">
+                    <div class="col-4 offset-md-1">
+                        <h4>
+                            <a href="movie.php?movie=<?php echo $row['movie_id']; ?>">
+                            <?php echo $row['title']; ?>
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="col-7">
+                        <h4><?php echo "Director"; ?></h4> 
+                    </div> 
+                </div>
+            </div>
+        <?php 
+        }
+        ?>
+
 
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
