@@ -11,6 +11,8 @@ $movieId = $_GET["movie"];
         , p.last_nm AS last_name
         , m.year
         , m.release_date
+        , m.description
+        , m.duration
         , r.rating_nm AS rating
         , m.post_credit
         , m.gross_box_office AS gate
@@ -22,7 +24,6 @@ $movieId = $_GET["movie"];
         , cis282movies.persons p
         , cis282movies.ratings r
         , cis282movies.languages l
-
 
         WHERE 
         m.director_id = p.person_id
@@ -44,8 +45,33 @@ $movieBio = mysqli_fetch_all($result, MYSQLI_ASSOC); // you will rename your var
 
 // get cast data that will need to be added next
 
+//to your movies.model.php
+//Get Cast Details
+$strSQL = "SELECT
+c.movie_id
+, p.person_id
+, p.first_nm as first_name
+, p.last_nm as last_name
+, c.character_nm as character_name
+, r.role
+FROM 
+cis282movies.movies m
+, cis282movies.persons p
+, cis282movies.casts c
+, cis282movies.roles r
+WHERE
+c.role_id = r.role_id
+AND c.person_id = p.person_id
+AND m.movie_id = c.movie_id
+AND m.movie_id = $movieId
 
+ORDER BY c.role_id
+";
 
+// Get Result
+$result = mysqli_query($connect, $strSQL);
+// Fetch Data
+$movieCast = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
 // free result

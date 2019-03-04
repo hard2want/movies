@@ -1,0 +1,38 @@
+/*:root {
+    --lg-spacing: 3%;
+    --md-spacing: 2%;
+    --sm-spacing: 1%;
+}
+
+.main-title {
+    margin-top: var(--lg-spacing);
+    margin-bottom: var(--lg-spacing);
+    margin-left: var(--md-spacing);
+}
+
+.main-headers {
+    margin-bottom: var(--sm-spacing);
+}
+
+.list {
+    margin-bottom: var(--lg-spacing);
+}
+
+.movie-headers {
+    margin-top: var(--sm-spacing);
+    margin-bottom: var(--lg-spacing);
+}
+
+.movie-details {
+    margin-top: var(--lg-spacing);
+}
+
+.movie-desc {
+    margin-top: var(--sm-spacing);
+    margin-bottom: var(--sm-spacing);
+}
+
+.cast {
+    margin-bottom: var(--sm-spacing);
+}
+*/

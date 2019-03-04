@@ -10,7 +10,10 @@
 
 
     <?php 
+        // the require statement enables the data from config.php to be used by the index.php file. 
+        // If the require statement returns an error, then the script execution fails
         require('includes/config.php');
+        // the $strSQL is a generic variable name (could be anything) that will feed the assigned SQL query to a function
         $strSQL = "SELECT
                     m.movie_id
                     , p.person_id
@@ -41,16 +44,31 @@
 
                     "; // you need a variable and put the query in double quotes
 
-        // get results
+        // Step 1 - GET RESULTS: 
+        // the mysqli_query() function takes two required arguments, the information needed to connect to the database ($connect) and the query string you want to execute ($strSQL)
+        // the first argument is $connect that is coming from your config.php file that includes the 'local host address', 'you usesrname', 'you password', 'the database you want to access'
+        // the second argument is the querry you want to execute and that comes from the $strSQL variable you previously established, but you could enter that entire string in place of the variable
+        // the function returns a mysqli_result object that you'll then need to process via mysqli_fetch_all()
         $result = mysqli_query($connect, $strSQL); // this should be the same for all queries based on the strSQL that you send it
 
-        // fetch data
+        // Step 2 - FETCH DATA: 
+        // the myslqi_fetch_all() function fetches all records (rows) per your query and returns the results as an associative array, a numeric array, or both
+        // the function take two arguments, the $results (required) received from Step 1 - GET RESULTS and the format for how you want those results (optional), .e.g. mysqli_fetch_all(result, resultType)
+        // the result type can be associative (MYSQLI_ASSOC), numeric (MYSQLI_NUM) or both (MYSLQI_BOTH)
+        // you store the return value in a new variable that you can name whatever is descriptive for your use case
+        // IMPORTANT NOTE --> this variable, e.g. $movies, is what holds all the data returned and what you'll use to access specific record fields in your display via php echo statments
         $movies = mysqli_fetch_all($result, MYSQLI_ASSOC); // you will rename your variable for each specific query
 
-        // free result
+        // Step 3 - FREE RESULT: 
+        // the mysqli_free_result() function fetches rows from a result-set, then frees the memory associated with the result
+        // the one required argument to pass is the $result obtained via Step 1 - GET RESULTS using mysqli_query()
+        // this function has no return value so you don't assign it to a variable
         mysqli_free_result($result);
 
-        // close connection
+        // Step 4 - CLOSE CONNECTION: 
+        // myslqi_close() will close a previously opended database connection.
+        // the function takes one argument and that is the same $connection data path you sent to it via myqsli_query() in step 1 - GET RESULTS
+        // the function will return TRUE on success and FALSE on failure
         mysqli_close($connect);
     ?>
 </head>
@@ -65,6 +83,7 @@
 
     <div class="container-fluid main-headers">
         <div class="row">
+        <!-- Note, the bootstrap grid is 12x wide, e.g. the sum of all columns is: col-1 + col-3 + col-2 + col-2 + col-2 + col-2 = 12-->
             <div class="col-1"></div>
             <div class="col-3">Title</div>
             <div class="col-2">Release Date</div>
@@ -76,14 +95,15 @@
 
 
     <?php foreach($movies as $row) { ?>
+    <!-- Note, the bootstrap grid is 12x wide, e.g. the sum of all columns is: col-1 + col-3 + col-2 + col-2 + col-2 + col-2 = 12-->
     <div class="container-fluid list">
         <div class="row">
-        <div class="col-1 text-center"><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['movie_id']; ?></a></div>
-        <div class="col-3"><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['title']; ?></a></div>
-        <div class="col-2"><?php echo $row['release_date']; ?></div>
-        <div class="col-2"><a href="person.php?person=<?php echo $row['person_id']; ?>"><?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?></a></div>
-        <div class="col-2"><?php echo $row['rating']; ?></div>
-        <div class="col-2"><?php echo $row['rotten_rating']; ?></div>
+            <div class="col-1 text-center"><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['movie_id']; ?></a></div>
+            <div class="col-3"><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['title']; ?></a></div>
+            <div class="col-2"><?php echo $row['release_date']; ?></div>
+            <div class="col-2"><a href="person.php?person=<?php echo $row['person_id']; ?>"><?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?></a></div>
+            <div class="col-2"><?php echo $row['rating']; ?></div>
+            <div class="col-2"><?php echo $row['rotten_rating']; ?></div>
         </div>
     </div>    
         <?php

@@ -1,44 +1,63 @@
 <?php 
 
-$personId = $_GET["person"];
+$personId = $_GET["person"]; // the GET request collect the value from the key/value pair set up within the <a> link and assigns it to the variable
 
-// get person details
-        $strSQL = "SELECT
-        m.movie_id
-        , p.person_id
-        , m.title
-        , p.first_nm AS first_name
-        , p.last_nm AS last_name
-        , m.year
-        , m.release_date
-        , r.rating_nm AS rating
-        , m.post_credit
-        , m.gross_box_office AS gate
-        , l.language_nm AS language
-        , m.rt_rating AS rotten_rating
-
-        FROM 
-        cis282movies.movies m
-        , cis282movies.persons p
-        , cis282movies.ratings r
-        , cis282movies.languages l
+// smaple query
+$strSQL = "SELECT p.first_nm
+, p.last_nm
+, p.dob
+, p.dod
+, co.country_nm as cob
+, g.description as gender
 
 
-        WHERE 
-        m.director_id = p.person_id
-        AND m.rating_id = r.ratings_id
-        AND m.language_id = l.languange_id
-        AND m.movie_id = $personId
+FROM
+cis282movies.persons p
+, cis282movies.countries co
+, cis282movies.genders g
 
-        ORDER BY m.movie_id
-
-        "; // you need a variable and put the query in double quotes
+WHERE
+ p.person_id = $personId
+ AND co.country_id = p.country_id
+ AND p.gender_id = g.gender_id
+ "; // you need a variable, e.g. $personId that is passed from the link and end the query in double quotes followed by the ;
 
 // get results
 $result = mysqli_query($connect, $strSQL); // this should be the same for all queries based on the strSQL that you send it
 
-// fetch data
-$movies = mysqli_fetch_all($result, MYSQLI_ASSOC); // you will rename your variable for each specific query
+// fetch data and this variable is what links your person_model to your person.php page
+$person = mysqli_fetch_all($result, MYSQLI_ASSOC); // you will rename your variable for each specific query
+
+
+
+
+// get cast data that will need to be added next
+
+//to your movies.model.php
+
+$strSQL = "SELECT
+m.movie_id
+, m.title
+, c.character_nm
+
+FROM
+cis282movies.movies m
+, cis282movies.casts c
+, cis282movies.persons p
+
+
+WHERE
+m.movie_id = c.movie_id
+AND c.person_id = p.person_id
+AND p.person_id = $personId
+
+ORDER BY c.movie_id
+";
+
+// Get Result
+$result = mysqli_query($connect, $strSQL);
+// Fetch Data
+$role = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // free result
 mysqli_free_result($result);

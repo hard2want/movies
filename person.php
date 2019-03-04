@@ -11,10 +11,11 @@
             // access the config to get to your database
             require('includes/config.php');
             // so you can do more than one query
-            require('models/movie_model.php');
+            require('models/person_model.php');
         ?>
-        <?php foreach($movieBio as $row) { ?>
-        <title>CIS 282 | <?php echo $row['title']; ?></title>
+        <?php foreach ($person as $row) { ?>
+        <title>CIS 282 | <?php echo $row['first_nm'] ; ?> <?php echo $row['last_nm']; ?> </title>
+        <?php }; ?>
     </head>
 
     <body>
@@ -28,59 +29,76 @@
             </div>
         </div>
 
-        <?php // var_dump($movieBio); ?>
-        <?php ini_set("display_errors", 1); ?>
-            <div class="container-fluid">
-                <div class="row movie-headers">
-                    <div class="col-7 offset-md-1">
-                        <h2><?php echo $row['title']; ?> (<?php echo $row['year']; ?>)</h2>
-                        <div class="row movie-details">
-                            <div class="col-4 offset-md-1 text-left">
-                                Director: <a href="person.php?person=<?php echo $row['person_id']; ?>">
-                                <?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?> </a> 
-                            </div> |
-                            <div class="col-1 text-center">
-                                <?php echo $row['rating']; ?> 
-                            </div> |
-                            <div class="col-3 text-center">
-                                <?php echo $row['duration']; ?> min
-                            </div> |
-                            <div class="col-2 text-center">
-                                <?php echo $row['release_date']; ?> (<?php echo $row['language']; ?>) 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <h3><?php echo $row['rotten_rating']; ?></h3>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row movie-desc">
-                <div class="col-7 offset-md-1">
-                   <?php echo $row['description']; ?>
+        <div class="container-fluid">
+            <div class="row cast">
+                <div class="col-4 offset-md-1">
+                    <h2>Actor Info</h2>
                 </div>
             </div>
-        <?php } ?>
+        </div>
 
-        <?php foreach($movieCast as $row) { ?>
+        <?php // var_dump($person); ?>
+        <?php foreach($person as $row) { ?>
             <div class="container-fluid">
                 <div class="row cast">
                     <div class="col-4 offset-md-1">
                         <h4>
-                            <a href="person.php?person=<?php echo $row['person_id']; ?>">
-                            <?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?>
-                            </a>
+                            Name: 
+                            <?php echo $row['first_nm']; ?> <?php echo $row['last_nm']; ?>
                         </h4>
                     </div>
-                    <div class="col-7">
-                        <h4><?php echo $row['character_name']; ?></h4> 
+                    <div class="col-5">
+                        <h4>Gender: <?php echo $row['gender']; ?></h4> 
+                    </div> 
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row cast">
+                    <div class="col-4 offset-md-1">
+                        <h4>Birth date: <?php echo $row['dob']; ?></h4> 
+                    </div> 
+                    <div class="col-5">
+                        <h4>Country of birth: <?php echo $row['cob']; ?></h4> 
                     </div> 
                 </div>
             </div>
         <?php 
         }
         ?>
+
+        <?php // var_dump($role); ?>
+
+        <div class="container-fluid">
+                <div class="row cast">
+                    <div class="col-4 offset-md-1">
+                        <h2>Movie</h2>
+                    </div>
+                    <div class="col-7">
+                        <h2>Character</h2> 
+                    </div> 
+                </div>
+            </div>
+
+
+        <?php foreach($role as $row) { ?>
+            <div class="container-fluid">
+                <div class="row cast">
+                    <div class="col-4 offset-md-1">
+                        <h4>
+                            <a href="movie.php?movie=<?php echo $row['movie_id']; ?>">
+                            <?php echo $row['title']; ?>
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="col-7">
+                        <h4><?php echo $row['character_nm']; ?></h4> 
+                    </div> 
+                </div>
+            </div>
+        <?php 
+        }
+        ?>
+
 
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
