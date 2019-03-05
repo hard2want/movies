@@ -56,7 +56,7 @@
         // the function take two arguments, the $results (required) received from Step 1 - GET RESULTS and the format for how you want those results (optional), .e.g. mysqli_fetch_all(result, resultType)
         // the result type can be associative (MYSQLI_ASSOC), numeric (MYSQLI_NUM) or both (MYSLQI_BOTH)
         // you store the return value in a new variable that you can name whatever is descriptive for your use case
-        // IMPORTANT NOTE --> this variable, e.g. $movies, is what holds all the data returned and what you'll use to access specific record fields in your display via php echo statments
+        // IMPORTANT NOTE --> this variable, $movies, is what holds all the data returned and what you'll use to access specific record fields in your display via php echo statments
         $movies = mysqli_fetch_all($result, MYSQLI_ASSOC); // you will rename your variable for each specific query
 
         // Step 3 - FREE RESULT: 
@@ -83,7 +83,7 @@
 
     <div class="container-fluid main-headers">
         <div class="row">
-        <!-- Note, the bootstrap grid is 12x wide, e.g. the sum of all columns is: col-1 + col-3 + col-2 + col-2 + col-2 + col-2 = 12-->
+        <!-- NOTE: the bootstrap grid is 12x wide, e.g. the sum of all columns is: col-1 + col-3 + col-2 + col-2 + col-2 + col-2 = 12-->
             <div class="col-1"></div>
             <div class="col-3">Title</div>
             <div class="col-2">Release Date</div>
@@ -93,11 +93,16 @@
         </div>
     </div>
 
-
+    <!--    the foreach loop takes $movies from line 60 in the querry above and iterates through each line; temporarily holding each individual
+            record in the $row variable and used to access each key:value pair.  They key is $row<'insert the SELECT column name or 'as' name'> 
+            and the value returned is the field of that column -->
     <?php foreach($movies as $row) { ?>
-    <!-- Note, the bootstrap grid is 12x wide, e.g. the sum of all columns is: col-1 + col-3 + col-2 + col-2 + col-2 + col-2 = 12-->
+    <!-- NOTE: the bootstrap grid is 12x wide, e.g. the sum of all columns is: col-1 + col-3 + col-2 + col-2 + col-2 + col-2 = 12-->
     <div class="container-fluid list">
         <div class="row">
+            <!--    the <a> tag uses php to append the appropriate value into the GET request that is then passed to the appropriate
+                    movie_model.php or person_model.php file via the movie.php or person.php include<> staement.
+                    There, the value is used to querry the specific movie / person requested -->
             <div class="col-1 text-center"><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['movie_id']; ?></a></div>
             <div class="col-3"><a href="movie.php?movie=<?php echo $row['movie_id']; ?>"><?php echo $row['title']; ?></a></div>
             <div class="col-2"><?php echo $row['release_date']; ?></div>

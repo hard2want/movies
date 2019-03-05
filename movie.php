@@ -8,11 +8,13 @@
         <link rel="stylesheet" href="css/styles.css">
 
         <?php 
-            // access the config to get to your database
+            // REQUIRE: the access path to the config.php file to get to your database access arguments that are used by your movie_model.php file
             require('includes/config.php');
-            // so you can do more than one query
+            // REQUIRE: the movie_model.php that holds your querry statements and returns the each querry's values for presentation
             require('models/movie_model.php');
         ?>
+
+        <!-- Note, the $movieBio is coming from line 51 after the first query of the movie_model.php file -->
         <?php foreach($movieBio as $row) { ?>
         <title>CIS 282 | <?php echo $row['title']; ?></title>
     </head>
@@ -28,6 +30,7 @@
             </div>
         </div>
 
+        <!-- Display the movie title, year of release, the director's full name, the movie's rating, duration, release date, language and rotten rating. -->
         <?php // var_dump($movieBio); ?>
         <?php ini_set("display_errors", 1); ?>
             <div class="container-fluid">
@@ -63,6 +66,8 @@
             </div>
         <?php } ?>
 
+            <!--    Show a sample of the cast for the individual movie selected and the character each actor portrayed
+                    Note, the $movieCast is coming from line 93 after the second query of the movie_model.php file -->
         <?php foreach($movieCast as $row) { ?>
             <div class="container-fluid">
                 <div class="row cast">

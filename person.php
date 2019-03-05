@@ -8,11 +8,12 @@
         <link rel="stylesheet" href="css/styles.css">
 
         <?php 
-            // access the config to get to your database
+            // REQUIRE: the access path to the config.php file to get to your database access arguments that are used by your person_model.php file
             require('includes/config.php');
-            // so you can do more than one query
+           // REQUIRE: the person_model.php that holds your querry statements and returns the each querry's values for presentation
             require('models/person_model.php');
         ?>
+        <!-- Note, the $person data is coming from line 39 after the first query of the person_model.php file -->
         <?php foreach ($person as $row) { ?>
         <title>CIS 282 | <?php echo $row['first_nm'] ; ?> <?php echo $row['last_nm']; ?> </title>
         <?php }; ?>
@@ -36,7 +37,7 @@
                 </div>
             </div>
         </div>
-
+        <!-- Note, the $person is coming from line 39 after the first query of the person_model.php file -->
         <?php // var_dump($person); ?>
         <?php foreach($person as $row) { ?>
             <div class="container-fluid">
@@ -79,7 +80,7 @@
                 </div>
             </div>
 
-
+        <!-- Note, the $role data is coming from line 81 after the second query of the person_model.php file -->
         <?php foreach($role as $row) { ?>
             <div class="container-fluid">
                 <div class="row cast">
@@ -98,8 +99,8 @@
         <?php 
         }
         ?>
-
-        <?Php // var_dump($director); ?>
+    <!-- Note, the $director data is coming from line 118 after the third query of the person_model.php file -->
+    <?Php // var_dump($director); ?>
     <?php foreach($director as $row) { ?>
             <div class="container-fluid">
                 <div class="row cast">
